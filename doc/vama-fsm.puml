@@ -1,0 +1,26 @@
+@startuml
+' Use https://liveuml.com/ to visualize
+[*] --> idle
+idle --> pumping : EVENT_LID_CLOSE
+idle : air valve off
+idle : bar valve off
+idle : weld off
+idle : pump off
+pumping --> welding : EVENT_PUMP_END
+pumping --> idle : EVENT_RESET | EVENT_LID_OPEN
+pumping : air valve off
+pumping : bar valve on
+pumping : weld off
+pumping : pump active
+welding --> ventilate: EVENT_WELD_END
+welding --> idle : EVENT_RESET | EVENT_LID_OPEN
+welding : air valve off
+welding : bar valve off
+welding : weld active
+welding : pump off
+ventilate --> idle : EVENT_RESET | EVENT_LID_OPEN
+ventilate : air valve on
+ventilate : bar value off
+ventilate : weld off
+ventilate : pump off
+@enduml
